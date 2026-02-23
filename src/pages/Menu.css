@@ -1,0 +1,82 @@
+.menu-page {
+    padding: calc(var(--nav-height) + var(--space-2xl)) 0 var(--space-3xl);
+    min-height: 100vh;
+}
+
+.menu-hero {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+    animation: fadeInUp 0.5s ease both;
+}
+
+.menu-hero p {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Category Tabs */
+.menu-tabs {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-2xl);
+    flex-wrap: wrap;
+    animation: fadeInUp 0.5s ease 0.1s both;
+}
+
+.menu-tab {
+    padding: 0.6rem 1.4rem;
+    border-radius: var(--radius-full);
+    font-weight: 700;
+    font-size: 0.9rem;
+    background: var(--color-surface);
+    color: var(--color-text-muted);
+    border: 2px solid var(--color-border);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    text-transform: capitalize;
+}
+
+.menu-tab:hover {
+    border-color: var(--color-primary-green);
+    color: var(--color-primary-green);
+}
+
+.menu-tab.active {
+    background: var(--color-primary-green);
+    color: white;
+    border-color: var(--color-primary-green);
+    box-shadow: 0 4px 15px rgba(73, 94, 87, 0.3);
+}
+
+/* Menu Grid */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-xl);
+}
+
+.menu-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: var(--space-3xl);
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .menu-tabs {
+        gap: var(--space-xs);
+    }
+
+    .menu-tab {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+}
