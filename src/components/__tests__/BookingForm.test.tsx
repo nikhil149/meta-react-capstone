@@ -138,4 +138,57 @@ describe('BookingForm', () => {
         fireEvent.change(dateInput, { target: { value: '2026-03-10' } });
         expect(mockOnDateChange).toHaveBeenCalledWith('2026-03-10');
     });
+
+    it('shows validation error on blur for empty required fields', () => {
+        renderForm();
+        const nameInput = screen.getByLabelText(/Full Name/i);
+        fireEvent.blur(nameInput);
+        expect(screen.getByText('Name is required')).toBeInTheDocument();
+
+        const phoneInput = screen.getByLabelText(/Phone/i);
+        fireEvent.blur(phoneInput);
+        expect(screen.getByText('Phone is required')).toBeInTheDocument();
+    });
+
+    it('shows email format error on blur for invalid email', async () => {
+        renderForm();
+        const emailInput = screen.getByLabelText(/Email/i);
+        await userEvent.type(emailInput, 'not-an-email');
+        fireEvent.blur(emailInput);
+        expect(screen.getByText('Invalid email')).toBeInTheDocument();
+    });
+
+    it('shows error when name is less than 3 characters', async () => {
+        renderForm();
+        const nameInput = screen.getByLabelText(/Full Name/i);
+        await userEvent.type(nameInput, 'Jo');
+        fireEvent.blur(nameInput);
+        expect(screen.getByText('Name must be at least 3 characters')).toBeInTheDocument();
+    });
+
+    it('accepts name with 3 or more characters', async () => {
+        renderForm();
+        const nameInput = screen.getByLabelText(/Full Name/i);
+        await userEvent.type(nameInput, 'Joe');
+        fireEvent.blur(nameInput);
+        expect(screen.queryByText('Name must be at least 3 characters')).not.toBeInTheDocument();
+        expect(screen.queryByText('Name is required')).not.toBeInTheDocument();
+    });
+
+    it('shows error for invalid US phone number', async () => {
+        renderForm();
+        const phoneInput = screen.getByLabelText(/Phone/i);
+        await userEvent.type(phoneInput, '123');
+        fireEvent.blur(phoneInput);
+        expect(screen.getByText('Enter a valid 10-digit US phone number')).toBeInTheDocument();
+    });
+
+    it('accepts valid US phone number formats', async () => {
+        renderForm();
+        const phoneInput = screen.getByLabelText(/Phone/i);
+        await userEvent.type(phoneInput, '(312) 555-0142');
+        fireEvent.blur(phoneInput);
+        expect(screen.queryByText('Enter a valid 10-digit US phone number')).not.toBeInTheDocument();
+        expect(screen.queryByText('Phone is required')).not.toBeInTheDocument();
+    });
 });

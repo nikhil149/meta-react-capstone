@@ -56,14 +56,46 @@ const BookingForm = ({ availableTimes, onDateChange }: BookingFormProps) => {
         }
     };
 
+    const validateField = (name: string, value: string): string => {
+        switch (name) {
+            case 'name':
+                if (!value.trim()) return 'Name is required';
+                if (value.trim().length < 3) return 'Name must be at least 3 characters';
+                return '';
+            case 'email':
+                if (!value.trim()) return 'Email is required';
+                if (!/\S+@\S+\.\S+/.test(value)) return 'Invalid email';
+                return '';
+            case 'phone': {
+                if (!value.trim()) return 'Phone is required';
+                const digits = value.replace(/\D/g, '');
+                if (digits.length !== 10) return 'Enter a valid 10-digit US phone number';
+                return '';
+            }
+            case 'date':
+                return !value ? 'Date is required' : '';
+            case 'time':
+                return !value ? 'Time is required' : '';
+            default:
+                return '';
+        }
+    };
+
+    const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        const error = validateField(name, value);
+        if (error) {
+            setErrors(prev => ({ ...prev, [name]: error }));
+        }
+    };
+
     const validate = (): boolean => {
         const newErrors: FormErrors = {};
-        if (!formData.name.trim()) newErrors.name = 'Name is required';
-        if (!formData.email.trim()) newErrors.email = 'Email is required';
-        else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Invalid email';
-        if (!formData.phone.trim()) newErrors.phone = 'Phone is required';
-        if (!formData.date) newErrors.date = 'Date is required';
-        if (!formData.time) newErrors.time = 'Time is required';
+        const fieldsToValidate = ['name', 'email', 'phone', 'date', 'time'] as const;
+        fieldsToValidate.forEach(field => {
+            const error = validateField(field, formData[field]);
+            if (error) newErrors[field] = error;
+        });
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -89,6 +121,7 @@ const BookingForm = ({ availableTimes, onDateChange }: BookingFormProps) => {
                         placeholder="John Doe"
                         value={formData.name}
                         onChange={handleChange}
+                        onBlur={handleBlur}
                     />
                     {errors.name && <span className="form-error">{errors.name}</span>}
                 </div>
@@ -102,6 +135,7 @@ const BookingForm = ({ availableTimes, onDateChange }: BookingFormProps) => {
                         placeholder="john@example.com"
                         value={formData.email}
                         onChange={handleChange}
+                        onBlur={handleBlur}
                     />
                     {errors.email && <span className="form-error">{errors.email}</span>}
                 </div>
@@ -115,6 +149,7 @@ const BookingForm = ({ availableTimes, onDateChange }: BookingFormProps) => {
                         placeholder="(312) 555-0142"
                         value={formData.phone}
                         onChange={handleChange}
+                        onBlur={handleBlur}
                     />
                     {errors.phone && <span className="form-error">{errors.phone}</span>}
                 </div>
@@ -137,6 +172,7 @@ const BookingForm = ({ availableTimes, onDateChange }: BookingFormProps) => {
                         min={today}
                         value={formData.date}
                         onChange={handleChange}
+                        onBlur={handleBlur}
                     />
                     {errors.date && <span className="form-error">{errors.date}</span>}
                 </div>
@@ -148,6 +184,7 @@ const BookingForm = ({ availableTimes, onDateChange }: BookingFormProps) => {
                         name="time"
                         value={formData.time}
                         onChange={handleChange}
+                        onBlur={handleBlur}
                         disabled={!formData.date}
                     >
                         <option value="">
