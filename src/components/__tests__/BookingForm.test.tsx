@@ -1,13 +1,15 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import BookingForm from '../BookingForm';
 
-const renderForm = () =>
+const mockOnDateChange = vi.fn();
+
+const renderForm = (availableTimes: string[] = []) =>
     render(
         <BrowserRouter>
-            <BookingForm />
+            <BookingForm availableTimes={availableTimes} onDateChange={mockOnDateChange} />
         </BrowserRouter>
     );
 
@@ -112,11 +114,28 @@ describe('BookingForm', () => {
         expect(guestSelect.value).toBe('4');
     });
 
-    it('renders available time slots', () => {
+    it('disables time select when no date is selected', () => {
         renderForm();
-        const timeSelect = screen.getByLabelText(/Time/i);
-        fireEvent.click(timeSelect);
+        const timeSelect = screen.getByLabelText(/Time/i) as HTMLSelectElement;
+        expect(timeSelect.disabled).toBe(true);
+        expect(screen.getByText('Pick a date first')).toBeInTheDocument();
+    });
+
+    it('renders available time slots when provided via props', () => {
+        renderForm(['11:00 AM', '12:00 PM', '7:00 PM']);
+        const timeSelect = screen.getByLabelText(/Time/i) as HTMLSelectElement;
         expect(screen.getByText('11:00 AM')).toBeInTheDocument();
+        expect(screen.getByText('12:00 PM')).toBeInTheDocument();
         expect(screen.getByText('7:00 PM')).toBeInTheDocument();
+
+        const options = timeSelect.querySelectorAll('option');
+        expect(options.length).toBe(4); // 3 time slots + 1 placeholder
+    });
+
+    it('calls onDateChange when date is selected', async () => {
+        renderForm();
+        const dateInput = screen.getByLabelText(/Date/i);
+        fireEvent.change(dateInput, { target: { value: '2026-03-10' } });
+        expect(mockOnDateChange).toHaveBeenCalledWith('2026-03-10');
     });
 });

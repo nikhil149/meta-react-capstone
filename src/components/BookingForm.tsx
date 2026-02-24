@@ -18,7 +18,12 @@ interface FormErrors {
     [key: string]: string;
 }
 
-const BookingForm = () => {
+interface BookingFormProps {
+    availableTimes: string[];
+    onDateChange: (date: string) => void;
+}
+
+const BookingForm = ({ availableTimes, onDateChange }: BookingFormProps) => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState<FormData>({
         name: '',
@@ -35,16 +40,17 @@ const BookingForm = () => {
 
     const today = new Date().toISOString().split('T')[0];
 
-    const availableTimes = [
-        '11:00 AM', '11:30 AM', '12:00 PM', '12:30 PM',
-        '1:00 PM', '1:30 PM', '5:00 PM', '5:30 PM',
-        '6:00 PM', '6:30 PM', '7:00 PM', '7:30 PM',
-        '8:00 PM', '8:30 PM', '9:00 PM',
-    ];
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
+
+        // Notify parent when date changes so it can update available times
+        if (name === 'date') {
+            onDateChange(value);
+            // Reset selected time since available slots may have changed
+            setFormData(prev => ({ ...prev, [name]: value, time: '' }));
+        }
+
         if (errors[name]) {
             setErrors(prev => ({ ...prev, [name]: '' }));
         }
@@ -137,8 +143,20 @@ const BookingForm = () => {
 
                 <div className="form-group">
                     <label htmlFor="time">Time</label>
-                    <select id="time" name="time" value={formData.time} onChange={handleChange}>
-                        <option value="">Select a time</option>
+                    <select
+                        id="time"
+                        name="time"
+                        value={formData.time}
+                        onChange={handleChange}
+                        disabled={!formData.date}
+                    >
+                        <option value="">
+                            {!formData.date
+                                ? 'Pick a date first'
+                                : availableTimes.length === 0
+                                    ? 'No slots available'
+                                    : `Select a time (${availableTimes.length} slots)`}
+                        </option>
                         {availableTimes.map(t => (
                             <option key={t} value={t}>{t}</option>
                         ))}
