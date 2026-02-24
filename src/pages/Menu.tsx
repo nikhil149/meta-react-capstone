@@ -21,17 +21,17 @@ const Menu = () => {
         : menuItems.filter(item => item.category === activeCategory);
 
     return (
-        <main className="menu-page">
+        <div className="menu-page">
             <div className="container">
-                <div className="menu-hero">
+                <header className="menu-hero">
                     <h1 className="section-title">Our Menu</h1>
                     <p>
                         Discover our carefully curated Mediterranean dishes, made with the freshest
                         ingredients and traditional recipes passed down through generations.
                     </p>
-                </div>
+                </header>
 
-                <div className="menu-tabs">
+                <nav className="menu-tabs" aria-label="Menu categories">
                     {categories.map(cat => (
                         <button
                             key={cat.key}
@@ -41,7 +41,7 @@ const Menu = () => {
                             {cat.emoji} {cat.label}
                         </button>
                     ))}
-                </div>
+                </nav>
 
                 <div className="menu-grid">
                     {filteredItems.map((item, idx) => (
@@ -49,7 +49,7 @@ const Menu = () => {
                     ))}
                 </div>
             </div>
-        </main>
+        </div>
     );
 };
 

@@ -66,6 +66,19 @@
 /* Seating Toggle */
 .seating-toggle {
     grid-column: 1 / -1;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.seating-toggle legend {
+    display: block;
+    margin-bottom: var(--space-sm);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
 }
 
 .seating-toggle label {

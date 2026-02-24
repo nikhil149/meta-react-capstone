@@ -34,7 +34,7 @@ const testimonials = [
 
 const Home = () => {
     return (
-        <main>
+        <div>
             <Hero />
 
             {/* About Section */}
@@ -58,10 +58,10 @@ const Home = () => {
                         </Link>
                     </div>
                     <div className="home-about-visual">
-                        <div className="about-image-card">👨‍🍳</div>
-                        <div className="about-image-card">🥘</div>
-                        <div className="about-image-card">🍷</div>
-                        <div className="about-image-card">🌿</div>
+                        <figure className="about-image-card">👨‍🍳</figure>
+                        <figure className="about-image-card">🥘</figure>
+                        <figure className="about-image-card">🍷</figure>
+                        <figure className="about-image-card">🌿</figure>
                     </div>
                 </div>
             </section>
@@ -69,7 +69,7 @@ const Home = () => {
             {/* Specials Section */}
             <section className="home-specials">
                 <div className="container">
-                    <div className="specials-header">
+                    <header className="specials-header">
                         <div>
                             <h2 className="section-title">This Week's Specials</h2>
                             <p className="section-subtitle">Chef's handpicked favorites</p>
@@ -77,7 +77,7 @@ const Home = () => {
                         <Link to="/menu" className="btn btn-primary">
                             Full Menu →
                         </Link>
-                    </div>
+                    </header>
                     <div className="specials-grid">
                         {specials.map((item, idx) => (
                             <MenuCard key={item.id} item={item} index={idx} />
@@ -92,7 +92,7 @@ const Home = () => {
                     <h2 className="section-title" style={{ textAlign: 'center' }}>What Our Guests Say</h2>
                     <div className="testimonials-grid">
                         {testimonials.map((t, idx) => (
-                            <div key={idx} className="testimonial-card">
+                            <blockquote key={idx} className="testimonial-card">
                                 <div className="testimonial-stars">
                                     {'★'.repeat(t.stars)}{'☆'.repeat(5 - t.stars)}
                                 </div>
@@ -100,11 +100,11 @@ const Home = () => {
                                 <div className="testimonial-author">
                                     <div className="testimonial-avatar">{t.avatar}</div>
                                     <div>
-                                        <div className="testimonial-name">{t.name}</div>
+                                        <cite className="testimonial-name">{t.name}</cite>
                                         <div className="testimonial-role">{t.role}</div>
                                     </div>
                                 </div>
-                            </div>
+                            </blockquote>
                         ))}
                     </div>
                 </div>
@@ -120,7 +120,7 @@ const Home = () => {
                     </Link>
                 </div>
             </section>
-        </main>
+        </div>
     );
 };
 

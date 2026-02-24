@@ -146,8 +146,8 @@ const BookingForm = () => {
                     {errors.time && <span className="form-error">{errors.time}</span>}
                 </div>
 
-                <div className="seating-toggle">
-                    <label>Seating Preference</label>
+                <fieldset className="seating-toggle">
+                    <legend>Seating Preference</legend>
                     <div className="seating-options">
                         <div className="seating-option">
                             <input
@@ -184,7 +184,7 @@ const BookingForm = () => {
                             </label>
                         </div>
                     </div>
-                </div>
+                </fieldset>
 
                 <div className="form-group">
                     <label htmlFor="occasion">Occasion</label>

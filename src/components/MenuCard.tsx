@@ -12,21 +12,21 @@ const MenuCard = ({ item, index }: MenuCardProps) => {
             className="menu-card"
             style={{ animationDelay: `${index * 0.08}s` }}
         >
-            <div className="menu-card-image">
+            <figure className="menu-card-image">
                 {item.image}
-            </div>
+            </figure>
             <div className="menu-card-body">
-                <div className="menu-card-header">
+                <header className="menu-card-header">
                     <h3 className="menu-card-name">{item.name}</h3>
                     <span className="menu-card-price">${item.price.toFixed(2)}</span>
-                </div>
+                </header>
                 <p className="menu-card-description">{item.description}</p>
-                <div className="menu-card-footer">
+                <footer className="menu-card-footer">
                     <span className="menu-card-category">{item.category}</span>
                     <span className="menu-card-order">
                         Order for Delivery 🛵
                     </span>
-                </div>
+                </footer>
             </div>
         </article>
     );

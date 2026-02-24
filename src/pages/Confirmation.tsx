@@ -32,7 +32,7 @@ const Confirmation = () => {
     });
 
     return (
-        <main className="confirmation-page">
+        <div className="confirmation-page">
             <div className="container">
                 <div className="confirmation-card">
                     <div className="confirmation-icon">✓</div>
@@ -41,34 +41,34 @@ const Confirmation = () => {
                         Thank you, {booking.name}! Your table has been reserved. We look forward to welcoming you.
                     </p>
 
-                    <div className="confirmation-details">
+                    <dl className="confirmation-details">
                         <div className="confirmation-detail">
-                            <span className="confirmation-detail-label">Date</span>
-                            <span className="confirmation-detail-value">📅 {formattedDate}</span>
+                            <dt className="confirmation-detail-label">Date</dt>
+                            <dd className="confirmation-detail-value">📅 {formattedDate}</dd>
                         </div>
                         <div className="confirmation-detail">
-                            <span className="confirmation-detail-label">Time</span>
-                            <span className="confirmation-detail-value">🕐 {booking.time}</span>
+                            <dt className="confirmation-detail-label">Time</dt>
+                            <dd className="confirmation-detail-value">🕐 {booking.time}</dd>
                         </div>
                         <div className="confirmation-detail">
-                            <span className="confirmation-detail-label">Guests</span>
-                            <span className="confirmation-detail-value">👥 {booking.guests} {Number(booking.guests) === 1 ? 'Guest' : 'Guests'}</span>
+                            <dt className="confirmation-detail-label">Guests</dt>
+                            <dd className="confirmation-detail-value">👥 {booking.guests} {Number(booking.guests) === 1 ? 'Guest' : 'Guests'}</dd>
                         </div>
                         <div className="confirmation-detail">
-                            <span className="confirmation-detail-label">Seating</span>
-                            <span className="confirmation-detail-value">
+                            <dt className="confirmation-detail-label">Seating</dt>
+                            <dd className="confirmation-detail-value">
                                 {booking.seating === 'inside' ? '🏠 Inside' : '🌿 Outside'}
-                            </span>
+                            </dd>
                         </div>
                         <div className="confirmation-detail">
-                            <span className="confirmation-detail-label">Occasion</span>
-                            <span className="confirmation-detail-value">{occasionLabel}</span>
+                            <dt className="confirmation-detail-label">Occasion</dt>
+                            <dd className="confirmation-detail-value">{occasionLabel}</dd>
                         </div>
                         <div className="confirmation-detail">
-                            <span className="confirmation-detail-label">Email</span>
-                            <span className="confirmation-detail-value">{booking.email}</span>
+                            <dt className="confirmation-detail-label">Email</dt>
+                            <dd className="confirmation-detail-value">{booking.email}</dd>
                         </div>
-                    </div>
+                    </dl>
 
                     {booking.notes && (
                         <div style={{ textAlign: 'left', marginBottom: '1.5rem', padding: '0 0.5rem' }}>
@@ -79,13 +79,13 @@ const Confirmation = () => {
                         </div>
                     )}
 
-                    <div className="confirmation-actions">
+                    <nav className="confirmation-actions" aria-label="Post-confirmation actions">
                         <Link to="/" className="btn btn-primary">Back to Home</Link>
                         <Link to="/menu" className="btn btn-outline">View Menu</Link>
-                    </div>
+                    </nav>
                 </div>
             </div>
-        </main>
+        </div>
     );
 };
 

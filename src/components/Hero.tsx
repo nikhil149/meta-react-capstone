@@ -5,7 +5,7 @@ const Hero = () => {
     return (
         <section className="hero">
             <div className="container">
-                <div className="hero-content">
+                <header className="hero-content">
                     <h1 className="hero-title">Little Lemon</h1>
                     <p className="hero-subtitle">Chicago</p>
                     <p className="hero-description">
@@ -21,16 +21,16 @@ const Hero = () => {
                             View Menu
                         </Link>
                     </div>
-                </div>
-                <div className="hero-visual">
+                </header>
+                <figure className="hero-visual">
                     <div className="hero-image-wrapper">
                         <div className="hero-image-main">🍽️</div>
-                        <div className="hero-badge">
+                        <figcaption className="hero-badge">
                             <div className="hero-badge-number">4.8</div>
                             <div className="hero-badge-text">★ Rating</div>
-                        </div>
+                        </figcaption>
                     </div>
-                </div>
+                </figure>
             </div>
         </section>
     );

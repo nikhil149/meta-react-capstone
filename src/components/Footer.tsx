@@ -17,21 +17,21 @@ const Footer = () => {
                         </p>
                     </div>
 
-                    <div className="footer-section">
+                    <nav className="footer-section" aria-label="Footer navigation">
                         <h4>Navigation</h4>
                         <ul>
                             <li><Link to="/">Home</Link></li>
                             <li><Link to="/menu">Menu</Link></li>
                             <li><Link to="/booking">Reservations</Link></li>
                         </ul>
-                    </div>
+                    </nav>
 
-                    <div className="footer-section">
+                    <address className="footer-section">
                         <h4>Contact</h4>
                         <p>📍 123 Lemon Street, Chicago</p>
                         <p>📞 (312) 555-0142</p>
                         <p>✉️ hello@littlelemon.com</p>
-                    </div>
+                    </address>
 
                     <div className="footer-section">
                         <h4>Hours</h4>

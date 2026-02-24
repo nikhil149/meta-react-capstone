@@ -30,12 +30,12 @@ const Navbar = () => {
                     </div>
                 </Link>
 
-                <div className={`navbar-links ${isOpen ? 'open' : ''}`}>
-                    <Link to="/" className={isActive('/')}>Home</Link>
-                    <Link to="/menu" className={isActive('/menu')}>Menu</Link>
-                    <Link to="/booking" className={isActive('/booking')}>Reservations</Link>
-                    <Link to="/booking" className="btn btn-primary navbar-cta">Book a Table</Link>
-                </div>
+                <ul className={`navbar-links ${isOpen ? 'open' : ''}`}>
+                    <li><Link to="/" className={isActive('/')}>Home</Link></li>
+                    <li><Link to="/menu" className={isActive('/menu')}>Menu</Link></li>
+                    <li><Link to="/booking" className={isActive('/booking')}>Reservations</Link></li>
+                    <li><Link to="/booking" className="btn btn-primary navbar-cta">Book a Table</Link></li>
+                </ul>
 
                 <button
                     className={`navbar-hamburger ${isOpen ? 'open' : ''}`}
